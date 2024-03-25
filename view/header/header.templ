@@ -1,0 +1,24 @@
+package header
+
+import "github.com/meopedevts/crgom/view/components/theme"
+
+templ Header() {
+	<div class="flex w-full border-b-[1px] px-8 py-3">
+		<div class="flex flex-1 items-center justify-start gap-4">
+			// <LogoComponent />
+			// <Separator orientation="vertical" />
+			// <NavItems />
+			<div>Logo</div>
+			<div>Separator</div>
+			<div>NavItems</div>
+		</div>
+		<div class="flex items-center gap-4">
+			// <SignInButton />
+			// <ThemeToggle />
+			// <UserNav />
+			<div>SignInButton</div>
+			@theme.ThemeToggle()
+			<div>UserNav</div>
+		</div>
+	</div>
+}

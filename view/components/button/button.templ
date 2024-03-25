@@ -1,0 +1,63 @@
+package button
+
+type ButtonProps struct {
+	Attributes templ.Attributes
+	Variant    string
+	Size       string
+	ClassName  string
+}
+
+type Variant struct{}
+type Size struct{}
+
+templ Button(buttonProps ButtonProps) {
+	<button
+		{ buttonProps.Attributes... }
+		class={ "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
+		  buttonProps.Variant,
+      buttonProps.Size,
+      buttonProps.ClassName }
+	>
+		{ children... }
+	</button>
+}
+
+func (v Variant) Default() string {
+	return "bg-primary text-primary-foreground shadow hover:bg-primary/90"
+}
+
+func (v Variant) Destructive() string {
+	return "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90"
+}
+
+func (v Variant) Outline() string {
+	return "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground"
+}
+
+func (v Variant) Secundary() string {
+	return "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80"
+}
+
+func (v Variant) Ghost() string {
+	return "hover:bg-accent hover:text-accent-foreground"
+}
+
+func (v Variant) Link() string {
+	return "text-primary underline-offset-4 hover:underline"
+}
+
+func (s Size) Default() string {
+	return "h-9 px-4 py-2"
+}
+
+func (s Size) Small() string {
+	return "h-8 rounded-md px-3 text-xs"
+}
+
+func (s Size) Large() string {
+	return "h-10 rounded-md px-8"
+}
+
+func (s Size) Icon() string {
+	return "h-9 w-9"
+}

@@ -1,0 +1,16 @@
+package label
+
+type LabelProps struct {
+	Attibutes templ.Attributes
+	ClassName string
+}
+
+templ Label(labelProps LabelProps) {
+	<label
+		{ labelProps.Attibutes... }
+		class={ "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
+    labelProps.ClassName }
+	>
+		{ children... }
+	</label>
+}

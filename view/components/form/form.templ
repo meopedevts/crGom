@@ -1,0 +1,57 @@
+package form
+
+type FormItemProps struct {
+	Attributes templ.Attributes
+	ClassName  string
+}
+
+type FormDescriptionProps struct {
+	ClassName string
+}
+
+type FormMessageProps struct {
+	ClassName string
+}
+
+type FormProps struct {
+	Attributes templ.Attributes
+	ClassName  string
+}
+
+templ Form(formProps FormProps) {
+	<form
+		{ formProps.Attributes... }
+		class={ "space-y-8",
+			formProps.ClassName }
+	>
+		{ children... }
+	</form>
+}
+
+templ FormItem(formItemProps FormItemProps) {
+	<div
+		{ formItemProps.Attributes... }
+		class={ "space-y-2",
+      formItemProps.ClassName }
+	>
+		{ children... }
+	</div>
+}
+
+templ FormDescription(formDescriptionProps FormDescriptionProps) {
+	<p
+		class={ "text-[0.8rem] text-muted-foreground",
+      formDescriptionProps.ClassName }
+	>
+		{ children... }
+	</p>
+}
+
+templ FormMessage(formMessageProps FormMessageProps) {
+	<p
+		class={ "text-[0.8rem] font-medium text-destructive",
+      formMessageProps.ClassName }
+	>
+		{ children... }
+	</p>
+}

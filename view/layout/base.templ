@@ -1,0 +1,37 @@
+package layout
+
+import "github.com/meopedevts/crgom/view/header"
+
+script ThemeProvider() {
+	const getThemePreference = () => {
+		if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+			return localStorage.getItem('theme');
+		}
+		return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+	};
+	const isDark = getThemePreference() === 'dark';
+	document.documentElement.classList[isDark ? 'add' : 'remove']('dark');
+
+	if (typeof localStorage !== 'undefined') {
+		const observer = new MutationObserver(() => {
+			const isDark = document.documentElement.classList.contains('dark');
+			localStorage.setItem('theme', isDark ? 'dark' : 'light');
+		});
+		observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+	}
+}
+
+templ Layout() {
+	<html>
+		<head>
+			<script src="https://unpkg.com/htmx.org@1.7.0"></script>
+			<link href="/static/css/styles.css" rel="stylesheet"/>
+		</head>
+		<body class="bg-background text-primary" onLoad={ ThemeProvider() }>
+			@header.Header()
+			<main class="mx-8 my-8">
+				{ children... }
+			</main>
+		</body>
+	</html>
+}
