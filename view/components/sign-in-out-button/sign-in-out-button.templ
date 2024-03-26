@@ -1,0 +1,36 @@
+package signinout
+
+import "github.com/meopedevts/crgom/view/components/ui/button"
+
+type SignInOutButtonProps struct {
+	Path string
+}
+
+templ SignInOutButton(props SignInOutButtonProps) {
+	<script type="text/javascript">
+    function redirect(path) {
+      window.location.href = path
+    }
+  </script>
+	if (props.Path == "/auth/login") {
+		@button.Button(button.ButtonProps{
+			Variant: button.Variant{}.Default(),
+			Size:    button.Size{}.Default(),
+			Attributes: templ.Attributes{
+				"onClick": "redirect('/auth/register')",
+			},
+		}) {
+			Registrar
+		}
+	} else {
+		@button.Button(button.ButtonProps{
+			Variant: button.Variant{}.Default(),
+			Size:    button.Size{}.Default(),
+			Attributes: templ.Attributes{
+				"onClick": "redirect('/auth/login')",
+			},
+		}) {
+			Entrar
+		}
+	}
+}

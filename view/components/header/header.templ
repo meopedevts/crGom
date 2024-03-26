@@ -1,0 +1,33 @@
+package header
+
+import "github.com/meopedevts/crgom/view/components/ui/theme"
+import "github.com/labstack/echo/v4"
+import "github.com/meopedevts/crgom/view/components/sign-in-out-button"
+import "strings"
+
+type HeaderProps struct {
+	Context echo.Context
+}
+
+templ Header(props HeaderProps) {
+	<div class="flex w-full border-b border-border/40 px-8 py-3">
+		<div class="flex flex-1 items-center justify-start gap-4">
+			<div>Logo</div>
+			if (!strings.Contains(props.Context.Path(), "/auth")) {
+				<div>Separator</div>
+				<div>NavItems</div>
+			}
+		</div>
+		<div class="flex items-center gap-4">
+			if (strings.Contains(props.Context.Path(), "/auth")) {
+				@signinout.SignInOutButton(signinout.SignInOutButtonProps{
+					Path: props.Context.Path(),
+				})
+			}
+			@theme.ThemeToggle()
+			if (!strings.Contains(props.Context.Path(), "/auth")) {
+				<div>UserNav</div>
+			}
+		</div>
+	</div>
+}

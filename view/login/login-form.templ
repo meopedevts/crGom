@@ -1,0 +1,93 @@
+package login
+
+import "github.com/labstack/echo/v4"
+import "github.com/meopedevts/crgom/view/layout"
+import "github.com/meopedevts/crgom/view/components/ui/form"
+import "github.com/meopedevts/crgom/view/components/ui/label"
+import "github.com/meopedevts/crgom/view/components/ui/input"
+import "github.com/meopedevts/crgom/view/components/ui/button"
+
+type LoginFormProps struct {
+	Context echo.Context
+}
+
+templ LoginForm(props LoginFormProps) {
+	@layout.Layout(layout.LayoutProps{
+		Context: props.Context,
+	}) {
+		// <div class="flex flex-col w-full items-center justify-center gap-10">
+		// 	<div class="text-2xl font-bold leading-9 tracking-tight text-primary">
+		// 		Entrar
+		// 	</div>
+		// 	@form.Form(form.FormProps{
+		// 		Attributes: templ.Attributes{
+		// 			"hx-post": "/login",
+		// 		},
+		// 		ClassName: "container",
+		// 	}) {
+		// 		@form.FormItem(form.FormItemProps{}) {
+		// 			@label.Label(label.LabelProps{
+		// 				Attibutes: templ.Attributes{"for": "email"},
+		// 			}) {
+		// 				Email
+		// 			}
+		// 			@input.Input(input.InputProps{
+		// 				Type: "email",
+		// 				Attributes: templ.Attributes{
+		// 					"id":           "email",
+		// 					"name":         "email",
+		// 					"autocomplete": "email",
+		// 				},
+		// 			})
+		// 		}
+		// 		@button.Button(button.ButtonProps{
+		// 			Variant:   button.Variant{}.Default(),
+		// 			Size:      button.Size{}.Default(),
+		// 			ClassName: "w-full",
+		// 		}) {
+		// 			Entrar
+		// 		}
+		// 	}
+		// </div>
+		<div class="flex w-full items-center justify-center">
+			<div class="flex flex-col gap-8">
+				<div class="flex flex-col items-center gap-2">
+					<div class="text-3xl font-semibold">Login</div>
+					<div class="text-center text-muted-foreground">
+						Preencha seu email para receber o link de acesso
+					</div>
+				</div>
+				@form.Form(form.FormProps{
+					Attributes: templ.Attributes{
+						"hx-post":   "/register",
+						"hx-target": "#success",
+						"hx-swap":   "outerHTML",
+					},
+				}) {
+					@form.FormItem(form.FormItemProps{}) {
+						@label.Label(label.LabelProps{
+							Attibutes: templ.Attributes{"for": "email"},
+						}) {
+							Email
+						}
+						@input.Input(input.InputProps{
+							Type: "email",
+							Attributes: templ.Attributes{
+								"id":           "email",
+								"name":         "email",
+								"autocomplete": "email",
+							},
+						})
+					}
+					@button.Button(button.ButtonProps{
+						Variant:   button.Variant{}.Default(),
+						Size:      button.Size{}.Default(),
+						ClassName: "w-full",
+					}) {
+						Registrar
+					}
+				}
+			</div>
+		</div>
+	}
+}

@@ -1,0 +1,18 @@
+package home
+
+import "github.com/labstack/echo/v4"
+import "github.com/meopedevts/crgom/view/layout"
+
+type HomeProps struct {
+	Context echo.Context
+}
+
+templ Home(props HomeProps) {
+	@layout.Layout(layout.LayoutProps{
+		Context: props.Context,
+	}) {
+		<div>
+			Página inicial
+		</div>
+	}
+}

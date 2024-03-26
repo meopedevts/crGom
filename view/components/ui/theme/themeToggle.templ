@@ -1,0 +1,36 @@
+package theme
+
+import "github.com/meopedevts/crgom/view/components/ui/button"
+import "github.com/meopedevts/crgom/view/components/ui/icons"
+
+templ ThemeToggle() {
+	<script>
+    const getThemePreference = () => {
+      if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+        return localStorage.getItem('theme');
+      }
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    };
+    var theme = getThemePreference(); 
+
+    function setThemeState() {
+      theme = theme === 'dark' ? 'light' : 'dark'
+        
+      const isDark = theme === 'dark'
+      document.documentElement.classList[isDark ? 'add' : 'remove']('dark')
+    }
+  </script>
+	<div>
+		@button.Button(button.ButtonProps{
+			Variant: button.Variant{}.Outline(),
+			Size:    button.Size{}.Icon(),
+			Attributes: templ.Attributes{
+				"onclick": "setThemeState()",
+			},
+		}) {
+			@icons.Sun("h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0")
+			@icons.Moon("absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100")
+			<span class="sr-only">Mudar Tema</span>
+		}
+	</div>
+}

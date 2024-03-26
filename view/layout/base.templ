@@ -1,6 +1,11 @@
 package layout
 
-import "github.com/meopedevts/crgom/view/header"
+import "github.com/meopedevts/crgom/view/components/header"
+import "github.com/labstack/echo/v4"
+
+type LayoutProps struct {
+	Context echo.Context
+}
 
 script ThemeProvider() {
 	const getThemePreference = () => {
@@ -21,14 +26,17 @@ script ThemeProvider() {
 	}
 }
 
-templ Layout() {
+templ Layout(props LayoutProps) {
 	<html>
 		<head>
 			<script src="https://unpkg.com/htmx.org@1.7.0"></script>
 			<link href="/static/css/styles.css" rel="stylesheet"/>
+			@ThemeProvider()
 		</head>
-		<body class="bg-background text-primary" onLoad={ ThemeProvider() }>
-			@header.Header()
+		<body class="bg-background text-primary">
+			@header.Header(header.HeaderProps{
+				Context: props.Context,
+			})
 			<main class="mx-8 my-8">
 				{ children... }
 			</main>
